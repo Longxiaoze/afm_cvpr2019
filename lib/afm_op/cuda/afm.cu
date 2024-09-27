@@ -1,8 +1,8 @@
 #include <ATen/ATen.h>
 #include <ATen/cuda/CUDAContext.h>
 
-#include <THC/THC.h>
-#include <THC/THCDeviceUtils.cuh>
+
+
 
 #include <vector>
 #include <iostream>
@@ -108,13 +108,13 @@ std::tuple<at::Tensor,at::Tensor> afm_cuda(
             afmap_data,
             aflabel_data);    
     cudaDeviceSynchronize();
-    // THCudaCheck(cudaMemcpy(&aflabel_host[0],aflabel_dev,
+    // AT_CUDA_CHECK(cudaMemcpy(&aflabel_host[0],aflabel_dev,
                 // sizeof(int)*batch_size*height*width, cudaMemcpyDeviceToHost));
-    // THCudaCheck(cudaMemcpy(&afmap_host[0],afmap_dev,
+    // AT_CUDA_CHECK(cudaMemcpy(&afmap_host[0],afmap_dev,
                 // sizeof(int)*batch_size*2*height*width, cudaMemcpyDeviceToHost));
     
     // THCudaFree(state, aflabel_dev);
     // THCudaFree(state, afmap_dev);
-    THCudaCheck(cudaGetLastError());
+    AT_CUDA_CHECK(cudaGetLastError());
     return std::make_tuple(afmap, aflabel);
 }
