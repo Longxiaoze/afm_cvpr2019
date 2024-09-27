@@ -2,6 +2,20 @@
 
 This is the offical implementation for our [CVPR paper](https://arxiv.org/abs/1812.02122).
 
+## update to cuda 11.8 + pytorch 2+
+``` bash
+conda create --name afm python=3.9
+conda activate afm
+
+pip install -r requirements.txt
+
+conda install pytorch==2.4.1 torchvision torchaudio pytorch-cuda=11.8 -c pytorch -c nvidia
+
+cd lib
+make
+conda develop . ./lib
+```
+
 ## Introduction
 We reformulate the problem of line segment detection (LSD) as a coupled region coloring problem. Based on this new formulation, we can address the problem of LSD with convolutional neural networks.
 <p align="center">
